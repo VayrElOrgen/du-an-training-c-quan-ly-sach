@@ -17,7 +17,7 @@
 ## RÀNG BUỘC
 
 | STT | Dữ liệu | Kiểu dữ liệu | Ràng buộc |
-| :--: | :--- | :---: |
+| :---: | :--- | :--- | :--- |
 | 1 | Mã sách | char maSach[20] | Không rỗng, không trùng |
 | 2 | Tên sách | char tenSach[100] | Không rỗng |
 | 3 | Tác giả | char tacGia[100] | Không rỗng |
