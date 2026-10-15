@@ -165,7 +165,7 @@ void inSach(Sach s) {
            s.namXuatBan, s.giaSach, s.soLuongTon, s.soLuongDangMuon, tinhTrang);
 }
 
-void hienThiDanhSach()) {
+void hienThiDanhSach() {
     if (soSach == 0) {
         printf("Danh sach chua co sach nao.\n");
         return;
