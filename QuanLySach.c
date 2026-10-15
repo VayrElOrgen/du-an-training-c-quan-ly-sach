@@ -299,9 +299,7 @@ void timKiem() {
     }
 }
 
-
 /* ===================== SAP XEP / THONG KE ===================== */
-
 
 void thongKeSach() {
     int tongTon = 0, tongMuon = 0, soHetSach = 0;
