@@ -71,7 +71,7 @@ Quy ước trong danh sách: **việc in đậm = thuộc chức năng Bắt bu�
 
 **Kết quả cần đạt:** Điều hướng được các chức năng
 
-- [X] **`hienThiMenu()`: hiển thị menu chính gồm 10 lựa chọn**
+- [ ] **`hienThiMenu()`: hiển thị menu chính gồm 10 lựa chọn**
 - [x] **Viết vòng lặp menu chính trong `main()`: gọi hàm tương ứng với lựa chọn, quay lại menu cho đến khi người dùng chọn thoát**
 - [ ] **Thiết kế nội dung menu lọc gồm 8 lựa chọn**
 - [x] **Xử lý nhập lựa chọn menu không hợp lệ: thông báo và yêu cầu nhập lại**
