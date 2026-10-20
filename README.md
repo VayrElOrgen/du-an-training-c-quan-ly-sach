@@ -27,19 +27,19 @@ Các tính năng chính:
 **Môi trường:**
 
 - Ngôn ngữ: C
-- Trình biên dịch: [CẦN ĐIỀN: ví dụ GCC, phiên bản...]
-- Hệ điều hành: [CẦN ĐIỀN: Windows / Linux / macOS]
+- Trình biên dịch: GCC
+- Hệ điều hành: Windows
 
 **Biên dịch:**
 
 ```bash
-
+gcc QuanLySach.c -o QuanLySach
 ```
 
 **Chạy:**
 
 ```bash
-
+.\QuanLySach.exe
 ```
 
 Chạy xong sẽ hiện menu, nhập số của chức năng cần dùng rồi nhấn Enter. Nhập `0` để thoát.
