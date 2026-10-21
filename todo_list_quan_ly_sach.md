@@ -108,11 +108,11 @@ Quy ước trong danh sách: **việc in đậm = thuộc chức năng Bắt bu�
 
 **Kết quả cần đạt:** Lọc đơn và lọc kết hợp
 
-- [ ] **`locSach()`: hiển thị menu lọc sách và gọi hàm lọc tương ứng**
-- [ ] **`locTheoTheLoai()`: lọc sách theo thể loại**
-- [ ] **`locTheoTacGia()`: lọc sách theo tác giả**
-- [ ] **`locTheoNhaXuatBan()`: lọc sách theo nhà xuất bản**
-- [ ] **`locTheoKhoangGia()`: lọc theo khoảng giá (giá tối thiểu không được lớn hơn giá tối đa)**
+- [x] **`locSach()`: hiển thị menu lọc sách và gọi hàm lọc tương ứng**
+- [x] **`locTheoTheLoai()`: lọc sách theo thể loại**
+- [x] **`locTheoTacGia()`: lọc sách theo tác giả**
+- [x] **`locTheoNhaXuatBan()`: lọc sách theo nhà xuất bản**
+- [x] **`locTheoKhoangGia()`: lọc theo khoảng giá (giá tối thiểu không được lớn hơn giá tối đa)**
 - [ ] **`locTheoNamXuatBan()`: lọc theo một năm hoặc khoảng năm**
 - [ ] **`locTheoSoLuong()`: lọc sách còn hàng, hết hàng hoặc có số lượng dưới ngưỡng**
 - [ ] **`locKetHop()`: lọc kết hợp nhiều điều kiện, mặc định tất cả phải thỏa mãn (AND)**
