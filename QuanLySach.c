@@ -24,12 +24,11 @@ int soSach = 0;
 /* ===================== NHAP DU LIEU ===================== */
 
 void docDong(char s[], int size) {
-    int len;
     if (fgets(s, size, stdin) == NULL) { 
         printf("\nKet thuc nhap lieu. Thoat chuong trinh.\n");
         exit(0);
     }
-    len = (int)strlen(s);
+    int len = (int)strlen(s);
     if (len > 0 && s[len - 1] == '\n') {
         s[len - 1] = '\0';
     } else {
@@ -40,8 +39,7 @@ void docDong(char s[], int size) {
 }
 
 int laRong(const char s[]) {
-    int i;
-    for (i = 0; s[i] != '\0'; i++) {
+    for (int i = 0; s[i] != '\0'; i++) {
         if (s[i] != ' ') return 0;
     }
     return 1;
@@ -120,8 +118,7 @@ void layTinhTrang(Sach s, char ketQua[]) {
 
 
 int timViTriTheoMa(const char ma[]) {
-    int i;
-    for (i = 0; i < soSach; i++) {
+    for (int i = 0; i < soSach; i++) {
         if (strcmp(danhSach[i].maSach, ma) == 0) return i;
     }
     return -1;
@@ -148,8 +145,7 @@ int chuaChuoi(const char nguon[], const char tu[]) {
 /* ===================== HIEN THI DANG BANG ===================== */
 
 void inDuongKe() {
-    int i;
-    for (i = 0; i < 118; i++) putchar('-');
+    for (int i = 0; i < 118; i++) putchar('-');
     putchar('\n');
 }
 
@@ -170,13 +166,12 @@ void inSach(Sach s) {
 }
 
 void hienThiDanhSach() {
-    int i;
     if (soSach == 0) {
         printf("Danh sach chua co sach nao.\n");
         return;
     }
     inTieuDe();
-    for (i = 0; i < soSach; i++) inSach(danhSach[i]);
+    for (int i = 0; i < soSach; i++) inSach(danhSach[i]);
     inDuongKe();
     printf("Tong cong: %d dau sach.\n", soSach);
 }
@@ -200,6 +195,7 @@ Sach nhapThongTinSach(const char ma[]) {
 Sach nhapSach() {
     char ma[20];
     while (1) {
+		printf("===========================================\n");
         docChuoi("Ma sach: ", ma, 20);
         if (timViTriTheoMa(ma) == -1) break;
         printf("Loi: ma sach \"%s\" da ton tai!\n", ma);
@@ -222,9 +218,8 @@ void themSach() {
 
 void capNhatSach() {
     char ma[20];
-    int vt, dangMuon;
     docChuoi("Nhap ma sach can cap nhat: ", ma, 20);
-    vt = timViTriTheoMa(ma);
+    int vt = timViTriTheoMa(ma);
     if (vt == -1) {
         printf("Khong tim thay sach co ma \"%s\".\n", ma);
         return;
@@ -232,7 +227,7 @@ void capNhatSach() {
     inTieuDe();
     inSach(danhSach[vt]);
     printf("Nhap thong tin moi (ma sach khong doi):\n");
-    dangMuon = danhSach[vt].soLuongDangMuon;
+    int dangMuon = danhSach[vt].soLuongDangMuon;
     danhSach[vt] = nhapThongTinSach(ma);
     danhSach[vt].soLuongDangMuon = dangMuon;
     printf("Da cap nhat sach.\n");
@@ -240,9 +235,8 @@ void capNhatSach() {
 
 void xoaSach() {
     char ma[20];
-    int vt, i;
     docChuoi("Nhap ma sach can xoa: ", ma, 20);
-    vt = timViTriTheoMa(ma);
+    int vt = timViTriTheoMa(ma);
     if (vt == -1) {
         printf("Khong tim thay sach co ma \"%s\".\n", ma);
         return;
@@ -257,72 +251,12 @@ void xoaSach() {
         printf("Da huy xoa.\n");
         return;
     }
-    for (i = vt; i < soSach - 1; i++) {
+    for (int i = vt; i < soSach - 1; i++) {
         danhSach[i] = danhSach[i + 1];
     }
     soSach--;
     printf("Da xoa sach.\n");
 }
-
-/* ===================== MUON / TRA SACH ===================== */
-
-void muonSach() {
-	
-    char ma[20] = "";
-    int viTriSach = 0;
-	int soLuong = 0; 
-	
-    docChuoi("Nhap ma sach can muon: ", ma, 20);
-    viTriSach = timViTriTheoMa(ma);
-    
-    if (viTriSach == -1) {
-        printf("Khong tim thay sach co ma \"%s\".\n", ma);
-    return;
-    }
-    
-    inTieuDe();
-    inSach(danhSach[viTriSach]);
-    
-    if (danhSach[viTriSach].soLuongTon == 0) {
-        printf("Sach da het, khong the muon!\n");
-    return;
-    }
-    
-    soLuong = docSoNguyen("Nhap so luong muon: ", 1, danhSach[viTriSach].soLuongTon);
-    danhSach[viTriSach].soLuongTon -= soLuong;
-    danhSach[viTriSach].soLuongDangMuon += soLuong;
-    
-    printf("Muon thanh cong %d cuon sach \"%s\".\n", soLuong, danhSach[viTriSach].tenSach);
-    printf("Con ton: %d | Dang muon: %d\n",danhSach[viTriSach].soLuongTon, danhSach[viTriSach].soLuongDangMuon);
-	}
-
-void traSach() {
-    char ma[20];
-    int viTriSach = 0;
-	int soLuong = 0;
-	
-    docChuoi("Nhap ma sach can tra: ", ma, 20);
-    viTriSach = timViTriTheoMa(ma);
-    
-    if (viTriSach == -1) {
-        printf("Khong tim thay sach co ma \"%s\".\n", ma);
-    return;
-    }
-    inTieuDe();
-    inSach(danhSach[viTriSach]);
-    
-    if (danhSach[viTriSach].soLuongDangMuon == 0) {
-        printf("Sach nay khong co cuon nao dang duoc muon!\n");
-    return;
-    }
-    
-    soLuong = docSoNguyen("Nhap so luong tra: ", 1, danhSach[viTriSach].soLuongDangMuon);
-    danhSach[viTriSach].soLuongTon += soLuong;
-    danhSach[viTriSach].soLuongDangMuon -= soLuong;
-    
-    printf("Tra thanh cong %d cuon sach \"%s\".\n", soLuong, danhSach[viTriSach].tenSach);
-    printf("Con ton: %d | Dang muon: %d\n",danhSach[viTriSach].soLuongTon, danhSach[viTriSach].soLuongDangMuon);
-	}
 
 /* ===================== TIM KIEM / LOC ===================== */
 void locSach(int chon){
@@ -359,9 +293,11 @@ void loctheoTheLoai(){
 		if(strcmp(danhSach[i].theLoai, theLoai == 0)){
 			printf("\nMa sach: %s", danhSach[i].maSach);
 			printf("\nTen sach: %s", danhSach[i].tenSach);
+			printf("\nSo luong: %d", danhSach[i].soLuongTon); 
 			printf("\nGia sach: %.2lf", danhSach[i].giaSach);
 			printf("\nTac gia: %s", danhSach[i].tacGia);
 			printf("\nThe loai: %s", danhSach[i].theLoai);
+			printf("\nNam xuat ban: %d", danhSach[i].namXuatBan);
 			timThay = 1;
 		} 
 	}
@@ -380,9 +316,11 @@ void locTheoTacGia(){
 		if(strcmp(danhSach[i].tacGia, tacGia == 0)){
 			printf("\nMa sach: %s", danhSach[i].maSach);
 			printf("\nTen sach: %s", danhSach[i].tenSach);
+			printf("\nSo luong: %d", danhSach[i].soLuongTon); 
 			printf("\nGia sach: %.2lf", danhSach[i].giaSach);
 			printf("\nTac gia: %s", danhSach[i].tacGia);
 			printf("\nThe loai: %s", danhSach[i].theLoai);
+			printf("\nNam xuat ban: %d", danhSach[i].namXuatBan);
 			timThay = 1;
 		} 
 	}
@@ -401,9 +339,11 @@ void locTheoNhaXuatBan(){
 		if(strcmp(danhSach[i].nhaXuatBan, nhaXuatBan == 0)){
 			printf("\nMa sach: %s", danhSach[i].maSach);
 			printf("\nTen sach: %s", danhSach[i].tenSach);
+			printf("\nSo luong: %d", danhSach[i].soLuongTon); 
 			printf("\nGia sach: %.2lf", danhSach[i].giaSach);
 			printf("\nTac gia: %s", danhSach[i].tacGia);
 			printf("\nThe loai: %s", danhSach[i].theLoai);
+			printf("\nNam xuat ban: %d", danhSach[i].namXuatBan);
 			timThay = 1;
 		} 
 	}
@@ -427,9 +367,11 @@ void locTheoKhoangGia(){
 		if(strcmp(danhSach[i].giaSach >= minGia && danhSach[i].giaSach <= maxGia)){
 			printf("\nMa sach: %s", danhSach[i].maSach);
 			printf("\nTen sach: %s", danhSach[i].tenSach);
+			printf("\nSo luong: %d", danhSach[i].soLuongTon); 
 			printf("\nGia sach: %.2lf", danhSach[i].giaSach);
 			printf("\nTac gia: %s", danhSach[i].tacGia);
 			printf("\nThe loai: %s", danhSach[i].theLoai);
+			printf("\nNam xuat ban: %d", danhSach[i].namXuatBan);
 			timThay = 1;
 		} 
 	}
@@ -437,6 +379,90 @@ void locTheoKhoangGia(){
 	if(!timThay){
 		printf("Khong tim thay sach phu hop!\n");
 	}
+}
+
+void locTheoNamXuatBan(){
+	int timThay = 0;
+	printf("Nhap nam xuat ban: ");
+	scanf("%d", &namXuatBan);
+	getchar();
+	
+	for(int i = 0; i < soSach; i++){
+		if(strcmp(danhSach[i].namXuatBan == namXuatBan)){
+			printf("\nMa sach: %s", danhSach[i].maSach);
+			printf("\nTen sach: %s", danhSach[i].tenSach);
+			printf("\nSo luong: %d", danhSach[i].soLuongTon); 
+			printf("\nGia sach: %.2lf", danhSach[i].giaSach);
+			printf("\nTac gia: %s", danhSach[i].tacGia);
+			printf("\nThe loai: %s", danhSach[i].theLoai);
+			printf("\nNam xuat ban: %d", danhSach[i].namXuatBan);
+			timThay = 1;
+		} 
+	}
+	
+	if(!timThay){
+		printf("Khong tim thay sach phu hop!\n");
+	}
+} 
+
+void locTheoSoLuong() {
+	int timThay = 0;
+	printf("Nhap so luong: ");
+	scanf("%d", &soLuongTon);
+	getchar();
+	
+	for(int i = 0; i < soSach; i++){
+		if(strcmp(danhSach[i].soLuongTon == soLuongTon)){
+			printf("\nMa sach: %s", danhSach[i].maSach);
+			printf("\nTen sach: %s", danhSach[i].tenSach);
+			printf("\nSo luong: %d", danhSach[i].soLuongTon); 
+			printf("\nGia sach: %.2lf", danhSach[i].giaSach);
+			printf("\nTac gia: %s", danhSach[i].tacGia);
+			printf("\nThe loai: %s", danhSach[i].theLoai);
+			printf("\nNam xuat ban: %d", danhSach[i].namXuatBan); 
+			timThay = 1;
+		} 
+	}
+	
+	if(!timThay){
+		printf("Khong tim thay sach phu hop!\n");
+	}
+}
+
+void locKetHop() {
+    char theLoai[50];
+    double minGia, maxGia;
+    int nam, timThay = 0;
+
+    printf("Nhap the loai: ");
+    docDong(theLoai, sizeof(theLoai));
+    printf("Nhap gia thap nhat: ");
+    scanf("%lf", &minGia);
+    printf("Nhap gia cao nhat: ");
+    scanf("%lf", &maxGia);
+    printf("Nhap nam xuat ban: ");
+    scanf("%d", &nam);
+    getchar();
+
+    for (int i = 0; i < soSach; i++) {
+        if (strcmp(danhSach[i].theLoai, theLoai) == 0 &&
+            danhSach[i].giaSach >= minGia &&
+            danhSach[i].giaSach <= maxGia &&
+            danhSach[i].namXuatBan == nam) {
+            printf("\nMa sach: %s", danhSach[i].maSach);
+            printf("\nTen sach: %s", danhSach[i].tenSach);
+            printf("\nThe loai: %s", danhSach[i].theLoai);
+            printf("\nGia sach: %.2lf", danhSach[i].giaSach);
+            printf("\nNam xuat ban: %d\n",
+                   danhSach[i].namXuatBan);
+
+            timThay = 1;
+        }
+    }
+
+    if (!timThay) {
+        printf("Khong tim thay sach phu hop!\n");
+    }
 }
 
 void ketThucLoc(int dem) {
@@ -449,14 +475,12 @@ void ketThucLoc(int dem) {
 }
 
 void timKiem() {
-    int chon;
     printf("1. Theo ma sach\n2. Theo ten sach (chua tu khoa)\n0. Quay lai\n");
-    chon = docSoNguyen("Chon: ", 0, 2);
+    int chon = docSoNguyen("Chon: ", 0, 2);
     if (chon == 1) {
         char ma[20];
-        int vt;
         docChuoi("Nhap ma sach: ", ma, 20);
-        vt = timViTriTheoMa(ma);
+        int vt = timViTriTheoMa(ma);
         if (vt == -1) {
             printf("Khong tim thay sach co ma \"%s\".\n", ma);
         } else {
@@ -466,9 +490,9 @@ void timKiem() {
         }
     } else if (chon == 2) {
         char tu[100];
-        int dem = 0, i;
+        int dem = 0;
         docChuoi("Nhap ten sach (hoac 1 phan): ", tu, 100);
-        for (i = 0; i < soSach; i++) {
+        for (int i = 0; i < soSach; i++) {
             if (chuaChuoi(danhSach[i].tenSach, tu)) {
                 if (dem == 0) inTieuDe();
                 inSach(danhSach[i]);
@@ -482,9 +506,9 @@ void timKiem() {
 /* ===================== SAP XEP / THONG KE ===================== */
 
 void thongKeSach() {
-    int tongTon = 0, tongMuon = 0, soHetSach = 0, i;
+    int tongTon = 0, tongMuon = 0, soHetSach = 0;
     double tongGiaTri = 0;
-    for (i = 0; i < soSach; i++) {
+    for (int i = 0; i < soSach; i++) {
         tongTon += danhSach[i].soLuongTon;
         tongMuon += danhSach[i].soLuongDangMuon;
         if (danhSach[i].soLuongTon == 0) soHetSach++;
@@ -506,9 +530,7 @@ void hienThiMenu() {
     printf(" 3. Tim kiem sach\n");
     printf(" 4. Cap nhat sach\n");
     printf(" 5. Xoa sach\n");
-    printf(" 6. Muon sach\n");
-    printf(" 7. Tra sach\n");
-    printf(" 8. Thong ke\n");
+    printf(" 6. Thong ke\n");
     printf(" 0. Thoat\n");
     printf("===========================================\n");
 }
@@ -517,16 +539,14 @@ int main() {
     int chon;
     do {
         hienThiMenu();
-        chon = docSoNguyen("Chon chuc nang: ", 0, 8);
+        chon = docSoNguyen("Chon chuc nang: ", 0, 6);
         switch (chon) {
             case 1: themSach(); break;
             case 2: hienThiDanhSach(); break;
             case 3: timKiem(); break;
             case 4: capNhatSach(); break;
             case 5: xoaSach(); break;
-            case 6: muonSach(); break;
-            case 7: traSach(); break;
-            case 8: thongKeSach(); break;
+            case 6: thongKeSach(); break;
             case 0: printf("Tam biet!\n"); break;
         }
     } while (chon != 0);
