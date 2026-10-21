@@ -259,6 +259,119 @@ void xoaSach() {
 }
 
 /* ===================== TIM KIEM / LOC ===================== */
+void locSach(int chon){
+	printf("1. The Loai\n"); 
+	printf("2. Tac Gia\n"); 
+	printf("3. Nha Xuat Ban\n"); 
+	printf("4. Khoang Gia\n"); 
+	printf("5. Nam Xuat Ban\n"); 
+	printf("6. So Luong\n");
+	printf("7. Ket Hop\n");
+	printf("0. Thoat\n");
+	printf("Nhap lua chon: "); 
+	scanf("%d", &chon);
+	
+	switch(chon){
+		case 1: locTheoTheLoai(); break;
+		case 2: locTheoTacGia(); break;
+		case 3: locTheoNhaXuatBan(); break;
+		case 4: locTheoKhoangGia(); break;
+		case 5: locTheoNamXuatBan(); break;
+		case 6: locTheoSoLuong(); break;
+		case 7: locKetHop(); break; 
+		case 0: break;
+		default: printf("Lua chon khong hop le!"); 
+	} 
+} 
+
+void loctheoTheLoai(){
+	int timThay = 0;
+	printf("Nhap the loai: ");
+	docDong(theLoai, sizeof(theLoai));
+	
+	for(int i = 0; i < soSach; i++){
+		if(strcmp(danhSach[i].theLoai, theLoai == 0)){
+			printf("\nMa sach: %s", danhSach[i].maSach);
+			printf("\nTen sach: %s", danhSach[i].tenSach);
+			printf("\nGia sach: %.2lf", danhSach[i].giaSach);
+			printf("\nTac gia: %s", danhSach[i].tacGia);
+			printf("\nThe loai: %s", danhSach[i].theLoai);
+			timThay = 1;
+		} 
+	}
+	
+	if(!timThay){
+		printf("Khong tim thay sach phu hop!\n");
+	}
+}
+
+void locTheoTacGia(){
+	int timThay = 0;
+	printf("Nhap ten tac gia: ");
+	docDong(tacGia, sizeof(tacGia));
+	
+	for(int i = 0; i < soSach; i++){
+		if(strcmp(danhSach[i].tacGia, tacGia == 0)){
+			printf("\nMa sach: %s", danhSach[i].maSach);
+			printf("\nTen sach: %s", danhSach[i].tenSach);
+			printf("\nGia sach: %.2lf", danhSach[i].giaSach);
+			printf("\nTac gia: %s", danhSach[i].tacGia);
+			printf("\nThe loai: %s", danhSach[i].theLoai);
+			timThay = 1;
+		} 
+	}
+	
+	if(!timThay){
+		printf("Khong tim thay sach phu hop!\n");
+	} 
+}
+
+void locTheoNhaXuatBan(){
+	int timThay = 0;
+	printf("Nhap nha xuat ban: ");
+	docDong(nhaXuatBan, sizeof(nhaXuatBan));
+	
+	for(int i = 0; i < soSach; i++){
+		if(strcmp(danhSach[i].nhaXuatBan, nhaXuatBan == 0)){
+			printf("\nMa sach: %s", danhSach[i].maSach);
+			printf("\nTen sach: %s", danhSach[i].tenSach);
+			printf("\nGia sach: %.2lf", danhSach[i].giaSach);
+			printf("\nTac gia: %s", danhSach[i].tacGia);
+			printf("\nThe loai: %s", danhSach[i].theLoai);
+			timThay = 1;
+		} 
+	}
+	
+	if(!timThay){
+		printf("Khong tim thay sach phu hop!\n");
+	}
+}
+
+void locTheoKhoangGia(){
+	double minGia = 0;
+	double maxGia = 0;
+	int timThay = 0;
+	printf("Nhap khoang gia thap nhat: ");
+	scanf("%d", &minGia);
+	printf("Nhap khoang gia cao nhat: ");
+	scanf("%d", &maxGia);
+	getchar();
+	
+	for(int i = 0; i < soSach; i++){
+		if(strcmp(danhSach[i].giaSach >= minGia && danhSach[i].giaSach <= maxGia)){
+			printf("\nMa sach: %s", danhSach[i].maSach);
+			printf("\nTen sach: %s", danhSach[i].tenSach);
+			printf("\nGia sach: %.2lf", danhSach[i].giaSach);
+			printf("\nTac gia: %s", danhSach[i].tacGia);
+			printf("\nThe loai: %s", danhSach[i].theLoai);
+			timThay = 1;
+		} 
+	}
+	
+	if(!timThay){
+		printf("Khong tim thay sach phu hop!\n");
+	}
+}
 
 void ketThucLoc(int dem) {
     if (dem == 0) {
