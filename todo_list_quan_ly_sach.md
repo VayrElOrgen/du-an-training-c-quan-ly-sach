@@ -113,9 +113,9 @@ Quy ước trong danh sách: **việc in đậm = thuộc chức năng Bắt bu�
 - [x] **`locTheoTacGia()`: lọc sách theo tác giả**
 - [x] **`locTheoNhaXuatBan()`: lọc sách theo nhà xuất bản**
 - [x] **`locTheoKhoangGia()`: lọc theo khoảng giá (giá tối thiểu không được lớn hơn giá tối đa)**
-- [ ] **`locTheoNamXuatBan()`: lọc theo một năm hoặc khoảng năm**
-- [ ] **`locTheoSoLuong()`: lọc sách còn hàng, hết hàng hoặc có số lượng dưới ngưỡng**
-- [ ] **`locKetHop()`: lọc kết hợp nhiều điều kiện, mặc định tất cả phải thỏa mãn (AND)**
+- [x] **`locTheoNamXuatBan()`: lọc theo một năm hoặc khoảng năm**
+- [x] **`locTheoSoLuong()`: lọc sách còn hàng, hết hàng hoặc có số lượng dưới ngưỡng**
+- [x] **`locKetHop()`: lọc kết hợp nhiều điều kiện, mặc định tất cả phải thỏa mãn (AND)**
 - [ ] **Đảm bảo mọi hàm lọc không làm thay đổi dữ liệu gốc**
 - [ ] **Đảm bảo mọi hàm lọc thông báo không tìm thấy kết quả khi không có sách phù hợp, và không lỗi khi danh sách rỗng**
 
