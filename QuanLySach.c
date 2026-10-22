@@ -430,9 +430,9 @@ void locTheoSoLuong() {
 }
 
 void locKetHop() {
-    char theLoai[50];
-    double minGia, maxGia;
-    int nam, timThay = 0;
+    double minGia = 0;
+	double maxGia = 0;
+    int timThay = 0;
 
     printf("Nhap the loai: ");
     docDong(theLoai, sizeof(theLoai));
@@ -453,9 +453,7 @@ void locKetHop() {
             printf("\nTen sach: %s", danhSach[i].tenSach);
             printf("\nThe loai: %s", danhSach[i].theLoai);
             printf("\nGia sach: %.2lf", danhSach[i].giaSach);
-            printf("\nNam xuat ban: %d\n",
-                   danhSach[i].namXuatBan);
-
+            printf("\nNam xuat ban: %d\n", danhSach[i].namXuatBan);
             timThay = 1;
         }
     }
@@ -531,6 +529,8 @@ void hienThiMenu() {
     printf(" 4. Cap nhat sach\n");
     printf(" 5. Xoa sach\n");
     printf(" 6. Thong ke\n");
+    printf(" 7. Tim kiem sach\n");
+    printf(" 8. Loc sach\n");
     printf(" 0. Thoat\n");
     printf("===========================================\n");
 }
@@ -547,6 +547,8 @@ int main() {
             case 4: capNhatSach(); break;
             case 5: xoaSach(); break;
             case 6: thongKeSach(); break;
+            case 7: timKiem();
+            case 8: locSach();
             case 0: printf("Tam biet!\n"); break;
         }
     } while (chon != 0);
