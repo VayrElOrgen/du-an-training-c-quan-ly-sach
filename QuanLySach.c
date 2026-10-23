@@ -92,7 +92,7 @@ double docSoThuc(const char cauHoi[], double min, double max) {
         if (sscanf(buf, "%lf %c", &x, &thua) != 1) {
             printf("Loi: phai nhap mot so!\n");
         } else if (!(x >= min && x <= max)) {
-            printf("Loi: gia tri phai tu %.2f den %.2f!\n", min, max);
+            printf("Loi: gia tri phai tu %.0f den %.0f!\n", min, max);
         } else {
             return x;
         }
@@ -212,26 +212,6 @@ int hoiTimSach(const char cauHoi[]) {
     return vitri;
 }
 
-double docGiaSach() {
-    char buf[DAI];
-    char thua;
-    double x = 0;
-    while (1) {
-        printf("Gia sach: ");
-        docDong(buf, DAI);
-        if (sscanf(buf, "%lf %c", &x, &thua) != 1) {
-            printf("Loi: phai nhap mot so!\n");
-            continue;
-        }
-        if (x < GIA_MIN) x *= 1000; /* nhap 80 hieu la 80.000 */
-        if (x < GIA_MIN || x > GIA_MAX) {
-            printf("Loi: gia tri phai tu %d den %d!\n", GIA_MIN, GIA_MAX);
-        } else {
-            return x;
-        }
-    }
-}
-
 Sach nhapThongTinSach(const char ma[]) {
     Sach s;
     strcpy(s.maSach, ma);
@@ -244,7 +224,7 @@ Sach nhapThongTinSach(const char ma[]) {
     docChuoi("The loai: ", s.theLoai, sizeof(s.theLoai));
     docChuoi("Nha xuat ban: ", s.nhaXuatBan, sizeof(s.nhaXuatBan));
     s.namXuatBan = docSoNguyen("Nam xuat ban: ", NAM_MIN, layNamHienTai());
-    s.giaSach = docGiaSach();
+    s.giaSach = docSoThuc("Gia sach (VND): ", GIA_MIN, GIA_MAX);
     s.soLuongTon = docSoNguyen("So luong ton: ", 0, SO_LUONG_MAX);
     s.soLuongDangMuon = 0;
     return s;
@@ -347,10 +327,14 @@ void ketThucLoc(int dem) {
     }
 }
 
+void locTheoTacGia();
+
 void timKiem() {
-    printf("1. Theo ma sach\n2. Theo ten sach (chua tu khoa)\n0. Quay lai\n");
-    int chon = docSoNguyen("Chon: ", 0, 2);
-    if (chon == 1) {
+    printf("1. Theo ma sach\n2. Theo ten sach (chua tu khoa)\n3. Theo tac gia\n0. Quay lai\n");
+    int chon = docSoNguyen("Chon: ", 0, 3);
+    if (chon == 3) {
+        locTheoTacGia();
+    } else if (chon == 1) {
         int vt = hoiTimSach("Nhap ma sach: ");
         if (vt != -1) {
             inMotSach(vt);
@@ -431,9 +415,10 @@ void locTheoKhoangGia() {
 
 void locTheoNamXuatBan() {
     int dem = 0;
-    int nam = docSoNguyen("Nhap nam xuat ban: ", NAM_MIN, layNamHienTai());
+    int namTu = docSoNguyen("Nhap nam xuat ban tu nam: ", NAM_MIN, layNamHienTai());
+    int namDen = docSoNguyen("Nhap den nam: ", namTu, layNamHienTai());
     for (int i = 0; i < soSach; i++) {
-        if (danhSach[i].namXuatBan == nam) {
+        if (danhSach[i].namXuatBan >= namTu && danhSach[i].namXuatBan <= namDen) {
             if (dem == 0) inTieuDe();
             inSach(danhSach[i]);
             dem++;
@@ -444,9 +429,12 @@ void locTheoNamXuatBan() {
 
 void locTheoSoLuong() {
     int dem = 0;
-    int soLuong = docSoNguyen("Nhap so luong: ", 0, SO_LUONG_MAX);
+    printf("1. Con hang\n2. Het hang\n3. Duoi nguong\n");
+    int chon = docSoNguyen("Chon: ", 1, 3);
+    int nguong = chon == 3 ? docSoNguyen("Nhap nguong: ", 1, SO_LUONG_MAX) : 1;
     for (int i = 0; i < soSach; i++) {
-        if (danhSach[i].soLuongTon == soLuong) {
+        int ton = danhSach[i].soLuongTon;
+        if (chon == 1 ? ton > 0 : ton < nguong) {
             if (dem == 0) inTieuDe();
             inSach(danhSach[i]);
             dem++;
@@ -461,12 +449,14 @@ void locKetHop() {
     docChuoi("Nhap the loai: ", theLoai, sizeof(theLoai));
     double minGia = docSoThuc("Nhap gia thap nhat: ", 0, GIA_MAX);
     double maxGia = docSoThuc("Nhap gia cao nhat: ", minGia, GIA_MAX);
-    int nam = docSoNguyen("Nhap nam xuat ban: ", NAM_MIN, layNamHienTai());
+    int namTu = docSoNguyen("Nhap nam xuat ban tu nam: ", NAM_MIN, layNamHienTai());
+    int namDen = docSoNguyen("Nhap den nam: ", namTu, layNamHienTai());
     for (int i = 0; i < soSach; i++) {
         if (chuaChuoi(danhSach[i].theLoai, theLoai) &&
             danhSach[i].giaSach >= minGia &&
             danhSach[i].giaSach <= maxGia &&
-            danhSach[i].namXuatBan == nam) {
+            danhSach[i].namXuatBan >= namTu &&
+            danhSach[i].namXuatBan <= namDen) {
             if (dem == 0) inTieuDe();
             inSach(danhSach[i]);
             dem++;
