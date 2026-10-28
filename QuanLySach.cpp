@@ -445,25 +445,6 @@ int canDoiCho(const Sach *a, const Sach *b, int tieuChi) {
     if (tieuChi == SAP_GIA_TANG) return a->giaSach > b->giaSach;
     if (tieuChi == SAP_GIA_GIAM) return a->giaSach < b->giaSach;
     if (tieuChi == SAP_TON_GIAM) return a->soLuongTon < b->soLuongTon;
-    return 0;
-}
-
-void sapXepSach() {
-    if (soSach == 0) {
-        printf("Danh sach chua co sach nao.\n");
-        return;
-    }
-    printf("1. Ten sach A-Z\n2. Gia tang dan\n3. Gia giam dan\n4. So luong ton giam dan\n0. Quay lai\n");
-    int chon = docSoNguyen("Chon: ", 0, SAP_TON_GIAM);
-    if (chon == 0) return;
-    for (int i = 1; i < soSach; i++) {
-        Sach tam = danhSach[i];
-        int j = i - 1;
-        while (j >= 0 && canDoiCho(&danhSach[j], &tam, chon)) {
-            danhSach[j + 1] = danhSach[j];
-            j--;
-        }
-        danhSach[j + 1] = tam;
     }
     printf("Da sap xep. Ket qua:\n");
     hienThiDanhSach();
