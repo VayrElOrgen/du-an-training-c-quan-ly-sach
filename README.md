@@ -26,7 +26,7 @@ Các tính năng chính:
 
 **Môi trường:**
 
-- Ngôn ngữ: C
+- Ngôn ngữ: C/C++
 - Trình biên dịch: GCC
 - Hệ điều hành: Windows
 
