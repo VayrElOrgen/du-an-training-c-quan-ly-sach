@@ -50,7 +50,7 @@ Quy ước trong danh sách: **việc in đậm = thuộc chức năng Bắt bu�
 
 **Kết quả cần đạt:** Danh sách chức năng và ràng buộc
 
-- [ ] **Liệt kê 10 chức năng của chương trình và mức ưu tiên (mục 3.1)**
+- [x] **Liệt kê 10 chức năng của chương trình và mức ưu tiên (mục 3.1)**
 - [x] **Xác định 7 tiêu chí lọc sách: thể loại, tác giả, nhà xuất bản, khoảng giá, năm xuất bản, số lượng, lọc kết hợp (mục 3.2)**
 - [x] **Ghi nhận 5 quy tắc nghiệp vụ của lọc: báo không tìm thấy khi không có kết quả; không thay đổi dữ liệu gốc; lọc kết hợp mặc định AND; giá tối thiểu không lớn hơn giá tối đa; dữ liệu nhập đúng kiểu và trong giới hạn**
 - [x] **Tổng hợp ràng buộc của 8 trường dữ liệu (mục 4.1): không rỗng, không trùng mã, năm hợp lệ, giá và số lượng không âm**
@@ -71,9 +71,9 @@ Quy ước trong danh sách: **việc in đậm = thuộc chức năng Bắt bu�
 
 **Kết quả cần đạt:** Điều hướng được các chức năng
 
-- [ ] **`hienThiMenu()`: hiển thị menu chính gồm 10 lựa chọn**
+- [ \x] **`hienThiMenu()`: hiển thị menu chính gồm 10 lựa chọn**
 - [x] **Viết vòng lặp menu chính trong `main()`: gọi hàm tương ứng với lựa chọn, quay lại menu cho đến khi người dùng chọn thoát**
-- [ ] **Thiết kế nội dung menu lọc gồm 8 lựa chọn**
+- [x] **Thiết kế nội dung menu lọc gồm 8 lựa chọn**
 - [x] **Xử lý nhập lựa chọn menu không hợp lệ: thông báo và yêu cầu nhập lại**
 - [x] **Chức năng 10, Thoát chương trình: kết thúc chương trình an toàn**
 
@@ -108,16 +108,16 @@ Quy ước trong danh sách: **việc in đậm = thuộc chức năng Bắt bu�
 
 **Kết quả cần đạt:** Lọc đơn và lọc kết hợp
 
-- [ ] **`locSach()`: hiển thị menu lọc sách và gọi hàm lọc tương ứng**
-- [ ] **`locTheoTheLoai()`: lọc sách theo thể loại**
-- [ ] **`locTheoTacGia()`: lọc sách theo tác giả**
-- [ ] **`locTheoNhaXuatBan()`: lọc sách theo nhà xuất bản**
-- [ ] **`locTheoKhoangGia()`: lọc theo khoảng giá (giá tối thiểu không được lớn hơn giá tối đa)**
-- [ ] **`locTheoNamXuatBan()`: lọc theo một năm hoặc khoảng năm**
-- [ ] **`locTheoSoLuong()`: lọc sách còn hàng, hết hàng hoặc có số lượng dưới ngưỡng**
-- [ ] **`locKetHop()`: lọc kết hợp nhiều điều kiện, mặc định tất cả phải thỏa mãn (AND)**
-- [ ] **Đảm bảo mọi hàm lọc không làm thay đổi dữ liệu gốc**
-- [ ] **Đảm bảo mọi hàm lọc thông báo không tìm thấy kết quả khi không có sách phù hợp, và không lỗi khi danh sách rỗng**
+- [x] **`locSach()`: hiển thị menu lọc sách và gọi hàm lọc tương ứng**
+- [x] **`locTheoTheLoai()`: lọc sách theo thể loại**
+- [x] **`locTheoTacGia()`: lọc sách theo tác giả**
+- [x] **`locTheoNhaXuatBan()`: lọc sách theo nhà xuất bản**
+- [x] **`locTheoKhoangGia()`: lọc theo khoảng giá (giá tối thiểu không được lớn hơn giá tối đa)**
+- [x] **`locTheoNamXuatBan()`: lọc theo một năm hoặc khoảng năm**
+- [x] **`locTheoSoLuong()`: lọc sách còn hàng, hết hàng hoặc có số lượng dưới ngưỡng**
+- [x] **`locKetHop()`: lọc kết hợp nhiều điều kiện, mặc định tất cả phải thỏa mãn (AND)**
+- [x] **Đảm bảo mọi hàm lọc không làm thay đổi dữ liệu gốc**
+- [x] **Đảm bảo mọi hàm lọc thông báo không tìm thấy kết quả khi không có sách phù hợp, và không lỗi khi danh sách rỗng**
 
 ---
 
@@ -125,7 +125,7 @@ Quy ước trong danh sách: **việc in đậm = thuộc chức năng Bắt bu�
 
 **Kết quả cần đạt:** Hoàn thiện chức năng mở rộng
 
-- [ ] `[Nên có]` `sapXepSach()`: sắp xếp danh sách theo tên, giá hoặc số lượng
+- [x] `[Nên có]` `sapXepSach()`: sắp xếp danh sách theo tên, giá hoặc số lượng
 - [x] `[Nên có]` `thongKeSach()`: thống kê số đầu sách, tổng số cuốn và tổng giá trị kho
 
 
@@ -135,21 +135,21 @@ Quy ước trong danh sách: **việc in đậm = thuộc chức năng Bắt bu�
 
 **Kết quả cần đạt:** Phát hiện và sửa lỗi
 
-- [ ] **TC1: Thêm sách với dữ liệu hợp lệ → Thêm thành công**
-- [ ] **TC2: Thêm sách có mã trùng → Thông báo lỗi, không thêm**
-- [ ] **TC3: Nhập giá âm hoặc số lượng âm → Từ chối dữ liệu không hợp lệ**
-- [ ] **TC4: Hiển thị khi danh sách rỗng → Thông báo danh sách chưa có sách**
-- [ ] **TC5: Tìm mã sách không tồn tại → Thông báo không tìm thấy**
-- [ ] **TC6: Cập nhật sách theo mã hợp lệ → Thông tin được cập nhật**
-- [ ] **TC7: Xóa sách ở đầu, giữa hoặc cuối mảng → Xóa đúng sách, danh sách được sắp lại**
-- [ ] **TC8: Lọc theo thể loại có kết quả → Hiển thị đúng các sách phù hợp**
-- [ ] **TC9: Lọc theo khoảng giá không có kết quả → Thông báo không có sách phù hợp**
-- [ ] **TC10: Lọc kết hợp nhiều tiêu chí → Chỉ hiển thị sách thỏa mãn tất cả điều kiện**
-- [ ] **TC11: Lọc khi danh sách rỗng → Không phát sinh lỗi**
-- [ ] `[Nên có]` TC12: Sắp xếp theo tên hoặc giá → Danh sách đúng thứ tự
+- [x] **TC1: Thêm sách với dữ liệu hợp lệ → Thêm thành công**
+- [x] **TC2: Thêm sách có mã trùng → Thông báo lỗi, không thêm**
+- [x] **TC3: Nhập giá âm hoặc số lượng âm → Từ chối dữ liệu không hợp lệ**
+- [x] **TC4: Hiển thị khi danh sách rỗng → Thông báo danh sách chưa có sách**
+- [x] **TC5: Tìm mã sách không tồn tại → Thông báo không tìm thấy**
+- [x] **TC6: Cập nhật sách theo mã hợp lệ → Thông tin được cập nhật**
+- [x] **TC7: Xóa sách ở đầu, giữa hoặc cuối mảng → Xóa đúng sách, danh sách được sắp lại**
+- [x] **TC8: Lọc theo thể loại có kết quả → Hiển thị đúng các sách phù hợp**
+- [x] **TC9: Lọc theo khoảng giá không có kết quả → Thông báo không có sách phù hợp**
+- [x] **TC10: Lọc kết hợp nhiều tiêu chí → Chỉ hiển thị sách thỏa mãn tất cả điều kiện**
+- [x] **TC11: Lọc khi danh sách rỗng → Không phát sinh lỗi**
+- [x] `[Nên có]` TC12: Sắp xếp theo tên hoặc giá → Danh sách đúng thứ tự
 - [ ] `[Nâng cao]` TC13: Lưu và đọc dữ liệu từ file → Dữ liệu được khôi phục chính xác
-- [ ] **TC14: Nhập lựa chọn menu không hợp lệ → Thông báo và yêu cầu nhập lại**
-- [ ] **TC15: Nhập tên sách có dấu cách → Chương trình nhận đầy đủ chuỗi**
+- [x] **TC14: Nhập lựa chọn menu không hợp lệ → Thông báo và yêu cầu nhập lại**
+- [x] **TC15: Nhập tên sách có dấu cách → Chương trình nhận đầy đủ chuỗi**
 
 ---
 
@@ -157,8 +157,8 @@ Quy ước trong danh sách: **việc in đậm = thuộc chức năng Bắt bu�
 
 **Kết quả cần đạt:** Bản project hoàn chỉnh
 
-- [ ] **Tích hợp các nhóm hàm (quản lý sách, xử lý danh sách, đọc ghi file) vào chương trình chính**
-- [ ] **Đối chiếu chương trình với 9 tiêu chí hoàn thành bên dưới**
+- [x] **Tích hợp các nhóm hàm (quản lý sách, xử lý danh sách, đọc ghi file) vào chương trình chính**
+- [x] **Đối chiếu chương trình với 9 tiêu chí hoàn thành bên dưới**
 - [ ] **Hoàn thiện báo cáo kết quả kiểm thử**
 - [ ] **Chuẩn bị demo: mỗi thành viên giải thích được hoạt động của các hàm chính**
 
@@ -166,12 +166,12 @@ Quy ước trong danh sách: **việc in đậm = thuộc chức năng Bắt bu�
 
 ## TIÊU CHÍ HOÀN THÀNH PROJECT
 
-- [ ] 1. Các chức năng bắt buộc hoạt động chính xác.
-- [ ] 2. Dữ liệu được kiểm tra trước khi thêm và cập nhật.
-- [ ] 3. Mã sách không bị trùng.
-- [ ] 4. Chức năng lọc trả về đúng kết quả, không thay đổi danh sách gốc.
-- [ ] 5. Chương trình xử lý được danh sách rỗng và dữ liệu đầu vào sai.
-- [ ] 6. Code được chia hàm hợp lý, dễ đọc và dễ bảo trì.
+- [x] 1. Các chức năng bắt buộc hoạt động chính xác.
+- [x] 2. Dữ liệu được kiểm tra trước khi thêm và cập nhật.
+- [x] 3. Mã sách không bị trùng.
+- [x] 4. Chức năng lọc trả về đúng kết quả, không thay đổi danh sách gốc.
+- [x] 5. Chương trình xử lý được danh sách rỗng và dữ liệu đầu vào sai.
+- [x] 6. Code được chia hàm hợp lý, dễ đọc và dễ bảo trì.
 - [ ] 7. Chức năng đọc ghi file hoạt động nếu thuộc phạm vi yêu cầu.
-- [ ] 8. Chương trình được kiểm thử và có báo cáo kết quả.
-- [ ] 9. Nhóm có thể giải thích được các hoạt động của các hàm chính khi demo.
+- [x] 8. Chương trình được kiểm thử và có báo cáo kết quả.
+- [] 9. Nhóm có thể giải thích được các hoạt động của các hàm chính khi demo.
