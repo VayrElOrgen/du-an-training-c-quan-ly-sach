@@ -8,16 +8,11 @@
 #define MAX 1000
 #define DAI 200
 #define DAI_MA 20
-#define MA_DO_DAI 10
 #define NAM_MIN 1900
 #define GIA_MIN 50000
 #define GIA_MAX 1000000
 #define SO_LUONG_MAX 9999
 #define DO_RONG_BANG 118
-#define CHO_PHEP_MA "0123456789"
-#define CHO_PHEP_TEN_NGUOI " .'-"
-#define CHO_PHEP_CHUNG "0123456789 .,:'-()"
-#define CHO_PHEP_THE_LOAI " .,:'-()"
 
 #define SAP_TEN_AZ 1
 #define SAP_GIA_TANG 2
@@ -56,33 +51,19 @@ void docDong(char s[], int size) {
     }
 }
 
-void chuanHoaKhoangTrang(char s[]) {
-    int j = 0;
+int laRong(const char s[]) {
     for (int i = 0; s[i] != '\0'; i++) {
-        if (s[i] == ' ' && (j == 0 || s[j - 1] == ' ')) continue;
-        s[j++] = s[i];
-    }
-    if (j > 0 && s[j - 1] == ' ') j--;
-    s[j] = '\0';
-}
-
-int kiemTraKyTu(const char s[], const char choPhep[]) {
-    for (int i = 0; s[i] != '\0'; i++) {
-        if (!isalpha((unsigned char)s[i]) && strchr(choPhep, s[i]) == NULL) {
-            printf("Loi: ky tu khong hop le! Chi nhan chu cai khong dau va cac ky tu: [%s]\n", choPhep);
-            return 0;
-        }
+        if (s[i] != ' ') return 0;
     }
     return 1;
 }
 
-void docChuoi(const char cauHoi[], char s[], int size, const char choPhep[]) {
+void docChuoi(const char cauHoi[], char s[], int size) {
     while (1) {
         printf("%s", cauHoi);
         docDong(s, size);
-        chuanHoaKhoangTrang(s);
-        if (s[0] == '\0') printf("Loi: khong duoc de trong!\n");
-        else if (kiemTraKyTu(s, choPhep)) return;
+        if (!laRong(s)) return;
+        printf("Loi: khong duoc de trong!\n");
     }
 }
 
@@ -131,16 +112,6 @@ int hoiCoKhong(const char cauHoi[]) {
     }
 }
 
-int docMaSach(const char cauHoi[], char ma[]) {
-    printf("(nhap 0 de quay lai)\n");
-    while (1) {
-        docChuoi(cauHoi, ma, DAI_MA, CHO_PHEP_MA);
-        if (strcmp(ma, "0") == 0) return 0;
-        if (strlen(ma) == MA_DO_DAI) return 1;
-        printf("Loi: ma sach phai dung %d ky tu!\n", MA_DO_DAI);
-    }
-}
-
 /* ===================== HAM HO TRO ===================== */
 
 int layNamHienTai() {
@@ -180,6 +151,13 @@ int chuaChuoi(const char nguon[], const char tu[]) {
     chuyenThuong(nguon, a);
     chuyenThuong(tu, b);
     return strstr(a, b) != NULL;
+}
+
+int coChuSo(const char s[]) {
+    for (int i = 0; s[i] != '\0'; i++) {
+        if (s[i] >= '0' && s[i] <= '9') return 1;
+    }
+    return 0;
 }
 
 /* ===================== HIEN THI DANG BANG ===================== */
@@ -226,10 +204,7 @@ void hienThiDanhSach() {
 
 int hoiTimSach(const char cauHoi[]) {
     char ma[DAI_MA];
-    if (!docMaSach(cauHoi, ma)) {
-        printf("Da huy, quay lai menu.\n");
-        return -1;
-    }
+    docChuoi(cauHoi, ma, sizeof(ma));
     int vitri = timViTriTheoMa(ma);
     if (vitri == -1) {
         printf("Khong tim thay sach co ma \"%s\".\n", ma);
@@ -240,10 +215,14 @@ int hoiTimSach(const char cauHoi[]) {
 Sach nhapThongTinSach(const char ma[]) {
     Sach s;
     strcpy(s.maSach, ma);
-    docChuoi("Ten sach: ", s.tenSach, sizeof(s.tenSach), CHO_PHEP_CHUNG);
-    docChuoi("Tac gia: ", s.tacGia, sizeof(s.tacGia), CHO_PHEP_TEN_NGUOI);
-    docChuoi("The loai: ", s.theLoai, sizeof(s.theLoai), CHO_PHEP_THE_LOAI);
-    docChuoi("Nha xuat ban: ", s.nhaXuatBan, sizeof(s.nhaXuatBan), CHO_PHEP_CHUNG);
+    docChuoi("Ten sach: ", s.tenSach, sizeof(s.tenSach));
+    while (1) {
+        docChuoi("Tac gia: ", s.tacGia, sizeof(s.tacGia));
+        if (!coChuSo(s.tacGia)) break;
+        printf("Loi: ten tac gia khong duoc chua chu so!\n");
+    }
+    docChuoi("The loai: ", s.theLoai, sizeof(s.theLoai));
+    docChuoi("Nha xuat ban: ", s.nhaXuatBan, sizeof(s.nhaXuatBan));
     s.namXuatBan = docSoNguyen("Nam xuat ban: ", NAM_MIN, layNamHienTai());
     s.giaSach = docSoThuc("Gia sach (VND): ", GIA_MIN, GIA_MAX);
     s.soLuongTon = docSoNguyen("So luong ton: ", 0, SO_LUONG_MAX);
@@ -251,15 +230,14 @@ Sach nhapThongTinSach(const char ma[]) {
     return s;
 }
 
-int nhapSach(Sach *s) {
+Sach nhapSach() {
     char ma[DAI_MA];
     while (1) {
-        if (!docMaSach("Ma sach: ", ma)) return 0;
+        docChuoi("Ma sach: ", ma, sizeof(ma));
         if (timViTriTheoMa(ma) == -1) break;
         printf("Loi: ma sach \"%s\" da ton tai!\n", ma);
     }
-    *s = nhapThongTinSach(ma);
-    return 1;
+    return nhapThongTinSach(ma);
 }
 
 void themSach() {
@@ -268,12 +246,7 @@ void themSach() {
             printf("Loi: danh sach da day (%d sach), khong the them!\n", MAX);
             return;
         }
-        Sach moi;
-        if (!nhapSach(&moi)) {
-            printf("Da huy, quay lai menu.\n");
-            return;
-        }
-        danhSach[soSach] = moi;
+        danhSach[soSach] = nhapSach();
         soSach++;
         printf("Da them sach thanh cong.\n");
     } while (hoiCoKhong("Nhap tiep?"));
@@ -357,10 +330,10 @@ void ketThucLoc(int dem) {
     }
 }
 
-void locTheoChuoi(const char cauHoi[], const char choPhep[], size_t offset) {
+void locTheoChuoi(const char cauHoi[], size_t offset) {
     char tu[100];
     int dem = 0;
-    docChuoi(cauHoi, tu, sizeof(tu), choPhep);
+    docChuoi(cauHoi, tu, sizeof(tu));
     for (int i = 0; i < soSach; i++) {
         if (chuaChuoi((const char *)&danhSach[i] + offset, tu)) inKetQua(i, &dem);
     }
@@ -371,7 +344,7 @@ void timKiem() {
     printf("1. Theo ma sach\n2. Theo ten sach (chua tu khoa)\n3. Theo tac gia\n0. Quay lai\n");
     int chon = docSoNguyen("Chon: ", 0, 3);
     if (chon == 3) {
-        locTheoChuoi("Nhap ten tac gia: ", CHO_PHEP_TEN_NGUOI, offsetof(Sach, tacGia));
+        locTheoChuoi("Nhap ten tac gia: ", offsetof(Sach, tacGia));
     } else if (chon == 1) {
         int vt = hoiTimSach("Nhap ma sach: ");
         if (vt != -1) {
@@ -379,7 +352,7 @@ void timKiem() {
             ketThucLoc(1);
         }
     } else if (chon == 2) {
-        locTheoChuoi("Nhap ten sach (hoac 1 phan): ", CHO_PHEP_CHUNG, offsetof(Sach, tenSach));
+        locTheoChuoi("Nhap ten sach (hoac 1 phan): ", offsetof(Sach, tenSach));
     }
 }
 
@@ -426,7 +399,7 @@ void locTheoSoLuong() {
 void locKetHop() {
     char theLoai[50];
     int dem = 0;
-    docChuoi("Nhap the loai: ", theLoai, sizeof(theLoai), CHO_PHEP_THE_LOAI);
+    docChuoi("Nhap the loai: ", theLoai, sizeof(theLoai));
     double minGia = docSoThuc("Nhap gia thap nhat: ", 0, GIA_MAX);
     double maxGia = docSoThuc("Nhap gia cao nhat: ", minGia, GIA_MAX);
     int namTu = docSoNguyen("Nhap nam xuat ban tu nam: ", NAM_MIN, layNamHienTai());
@@ -454,9 +427,9 @@ void locSach() {
     printf("0. Thoat\n");
     int chon = docSoNguyen("Nhap lua chon: ", 0, 7);
     switch (chon) {
-        case 1: locTheoChuoi("Nhap the loai: ", CHO_PHEP_THE_LOAI, offsetof(Sach, theLoai)); break;
-        case 2: locTheoChuoi("Nhap ten tac gia: ", CHO_PHEP_TEN_NGUOI, offsetof(Sach, tacGia)); break;
-        case 3: locTheoChuoi("Nhap nha xuat ban: ", CHO_PHEP_CHUNG, offsetof(Sach, nhaXuatBan)); break;
+        case 1: locTheoChuoi("Nhap the loai: ", offsetof(Sach, theLoai)); break;
+        case 2: locTheoChuoi("Nhap ten tac gia: ", offsetof(Sach, tacGia)); break;
+        case 3: locTheoChuoi("Nhap nha xuat ban: ", offsetof(Sach, nhaXuatBan)); break;
         case 4: locTheoKhoangGia(); break;
         case 5: locTheoNamXuatBan(); break;
         case 6: locTheoSoLuong(); break;
@@ -472,25 +445,6 @@ int canDoiCho(const Sach *a, const Sach *b, int tieuChi) {
     if (tieuChi == SAP_GIA_TANG) return a->giaSach > b->giaSach;
     if (tieuChi == SAP_GIA_GIAM) return a->giaSach < b->giaSach;
     if (tieuChi == SAP_TON_GIAM) return a->soLuongTon < b->soLuongTon;
-    return 0;
-}
-
-void sapXepSach() {
-    if (soSach == 0) {
-        printf("Danh sach chua co sach nao.\n");
-        return;
-    }
-    printf("1. Ten sach A-Z\n2. Gia tang dan\n3. Gia giam dan\n4. So luong ton giam dan\n0. Quay lai\n");
-    int chon = docSoNguyen("Chon: ", 0, SAP_TON_GIAM);
-    if (chon == 0) return;
-    for (int i = 1; i < soSach; i++) {
-        Sach tam = danhSach[i];
-        int j = i - 1;
-        while (j >= 0 && canDoiCho(&danhSach[j], &tam, chon)) {
-            danhSach[j + 1] = danhSach[j];
-            j--;
-        }
-        danhSach[j + 1] = tam;
     }
     printf("Da sap xep. Ket qua:\n");
     hienThiDanhSach();
