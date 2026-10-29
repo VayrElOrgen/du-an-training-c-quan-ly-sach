@@ -1,4 +1,5 @@
 #include <ctype.h>
+#include <errno.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,6 +39,10 @@ typedef struct {
 
 Sach danhSach[MAX];
 int soSach = 0;
+
+#define TEN_FILE "sach.dat"
+#define TEN_FILE_TAM "sach.dat.tmp"
+int choPhepLuu = 1;
 
 /* ===================== NHAP DU LIEU ===================== */
 
@@ -222,6 +227,51 @@ void hienThiDanhSach() {
     printf("Tong cong: %d dau sach.\n", soSach);
 }
 
+/* ===================== LUU / DOC FILE ===================== */
+
+void napDuLieu() {
+    FILE *f = fopen(TEN_FILE, "rb");
+    if (f == NULL) {
+        choPhepLuu = (errno == ENOENT);
+        if (!choPhepLuu) printf("Loi: khong mo duoc file \"%s\"! Chay voi danh sach rong va KHONG luu.\n", TEN_FILE);
+        return;
+    }
+    int dau[2] = {0, 0};
+    if (fread(dau, sizeof(dau), 1, f) != 1 || dau[0] != (int)sizeof(Sach) || dau[1] < 0 || dau[1] > MAX ||
+        fread(danhSach, sizeof(Sach), (size_t)dau[1], f) != (size_t)dau[1] || fgetc(f) != EOF) {
+        printf("Loi: file \"%s\" bi hong. Chay voi danh sach rong va KHONG luu de bao ve file cu.\n", TEN_FILE);
+        choPhepLuu = 0;
+        dau[1] = 0;
+    }
+    fclose(f);
+    soSach = dau[1];
+}
+
+void luuDuLieu() {
+    if (!choPhepLuu) {
+        printf("Canh bao: khong luu vi file \"%s\" bi loi luc nap.\n", TEN_FILE);
+        return;
+    }
+    int dau[2] = {(int)sizeof(Sach), soSach};
+    FILE *f = fopen(TEN_FILE_TAM, "wb");
+    if (f == NULL) {
+        printf("Loi: khong mo duoc file tam \"%s\"!\n", TEN_FILE_TAM);
+        return;
+    }
+    int ok = fwrite(dau, sizeof(dau), 1, f) == 1 && fwrite(danhSach, sizeof(Sach), (size_t)soSach, f) == (size_t)soSach;
+    if (fclose(f) != 0 || !ok) {
+        printf("Loi: ghi file tam that bai!\n");
+        remove(TEN_FILE_TAM);
+        return;
+    }
+    if (rename(TEN_FILE_TAM, TEN_FILE) != 0) {
+        remove(TEN_FILE);
+        if (rename(TEN_FILE_TAM, TEN_FILE) != 0) {
+            printf("Loi: khong thay duoc file, du lieu moi nam trong \"%s\"!\n", TEN_FILE_TAM);
+        }
+    }
+}
+
 /* ===================== THEM / SUA / XOA ===================== */
 
 int hoiTimSach(const char cauHoi[]) {
@@ -276,6 +326,7 @@ void themSach() {
         danhSach[soSach] = moi;
         soSach++;
         printf("Da them sach thanh cong.\n");
+        luuDuLieu();
     } while (hoiCoKhong("Nhap tiep?"));
 }
 
@@ -298,6 +349,7 @@ void capNhatSach() {
             case 7: s->soLuongTon = docSoNguyen("So luong ton: ", 0, SO_LUONG_MAX); break;
         }
         printf("Da cap nhat sach.\n");
+        luuDuLieu();
     }
 }
 
@@ -316,6 +368,7 @@ void xoaSach() {
     memmove(&danhSach[vitri], &danhSach[vitri + 1], (size_t)(soSach - vitri - 1) * sizeof(Sach));
     soSach--;
     printf("Da xoa sach.\n");
+    luuDuLieu();
 }
 
 /* ===================== MUON / TRA SACH ===================== */
@@ -334,6 +387,7 @@ void muonSach() {
     printf("Muon thanh cong %d cuon sach \"%s\".\n", soLuong, danhSach[vitri].tenSach);
     printf("Con ton: %d | Dang muon: %d\n",
            danhSach[vitri].soLuongTon, danhSach[vitri].soLuongDangMuon);
+    luuDuLieu();
 }
 
 void traSach() {
@@ -350,6 +404,7 @@ void traSach() {
     printf("Tra thanh cong %d cuon sach \"%s\".\n", soLuong, danhSach[vitri].tenSach);
     printf("Con ton: %d | Dang muon: %d\n",
            danhSach[vitri].soLuongTon, danhSach[vitri].soLuongDangMuon);
+    luuDuLieu();
 }
 
 /* ===================== TIM KIEM ===================== */
@@ -505,6 +560,7 @@ void sapXepSach() {
         }
         danhSach[j + 1] = tam;
     }
+    luuDuLieu();
     printf("Da sap xep. Ket qua:\n");
     hienThiDanhSach();
 }
@@ -549,6 +605,7 @@ void hienThiMenu() {
 
 int main() {
     int chon = 0;
+    napDuLieu();
     do {
         hienThiMenu();
         chon = docSoNguyen("Chon chuc nang: ", 0, 10);
