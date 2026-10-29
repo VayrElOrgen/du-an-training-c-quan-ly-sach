@@ -5,14 +5,14 @@
 #include <string.h>
 #include <time.h>
 
-#define MAX 1000
+#define MAX 10000
 #define DAI 200
 #define DAI_MA 20
 #define MA_DO_DAI 10
 #define NAM_MIN 1900
 #define GIA_MIN 50000
 #define GIA_MAX 1000000
-#define SO_LUONG_MAX 9999
+#define SO_LUONG_MAX 1000
 #define DO_RONG_BANG 118
 #define CHO_PHEP_MA "0123456789"
 #define CHO_PHEP_TEN_NGUOI " .'-"
@@ -410,7 +410,8 @@ void locTheoKhoangGia() {
 
 void locTheoNamXuatBan() {
     int dem = 0;
-    int namTu = docSoNguyen("Nhap nam xuat ban tu nam: ", NAM_MIN, layNamHienTai());
+    int namTu = docSoNguyen("Nhap nam xuat ban tu nam (nhap 0 de quay lai): ", 0, layNamHienTai());
+    if (namTu == 0) return;
     int namDen = docSoNguyen("Nhap den nam: ", namTu, layNamHienTai());
     for (int i = 0; i < soSach; i++) {
         if (danhSach[i].namXuatBan >= namTu && danhSach[i].namXuatBan <= namDen) {
@@ -422,8 +423,9 @@ void locTheoNamXuatBan() {
 
 void locTheoSoLuong() {
     int dem = 0;
-    printf("1. Con hang\n2. Het hang\n3. Duoi nguong\n");
-    int chon = docSoNguyen("Chon: ", 1, 3);
+    printf("1. Con hang\n2. Het hang\n3. Duoi nguong\n0. Quay lai\n");
+    int chon = docSoNguyen("Chon: ", 0, 3);
+    if (chon == 0) return;
     int nguong = chon == 3 ? docSoNguyen("Nhap nguong: ", 1, SO_LUONG_MAX) : 1;
     for (int i = 0; i < soSach; i++) {
         int ton = danhSach[i].soLuongTon;
@@ -462,7 +464,7 @@ void locSach() {
     printf("5. Nam Xuat Ban\n");
     printf("6. So Luong\n");
     printf("7. Ket Hop\n");
-    printf("0. Thoat\n");
+    printf("0. Quay lai\n");
     int chon = docSoNguyen("Nhap lua chon: ", 0, 7);
     switch (chon) {
         case 1: locTheoChuoi("Nhap the loai: ", CHO_PHEP_THE_LOAI, offsetof(Sach, theLoai)); break;
